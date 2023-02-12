@@ -3,6 +3,7 @@
 * At least JDK 17 should be installed
 * At least Gradle 7.4 should be installed
 * If you are using IntelliJ, you should set Gradle JVM to JDK 17.
+* Put your registered email and password to BigParser into this file bigparsersample/src/main/resources/application.properties.
 
 ## PROJECT STRUCTURE
 
