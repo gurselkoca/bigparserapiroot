@@ -1,4 +1,4 @@
-package com.intellibus.bigparser.api.domain;
+package com.intellibus.bigparser.api.security.domain;
 
 
 import java.util.Objects;

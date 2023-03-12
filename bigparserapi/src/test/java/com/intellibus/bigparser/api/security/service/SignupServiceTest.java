@@ -1,12 +1,9 @@
-package com.intellibus.bigparser.api.security;
+package com.intellibus.bigparser.api.security.service;
 
-import com.intellibus.bigparser.api.domain.AuthIdToken;
-import com.intellibus.bigparser.api.domain.LoginRequest;
-import com.intellibus.bigparser.api.domain.LoginResponse;
-import com.intellibus.bigparser.api.domain.SignupRequest;
+import com.intellibus.bigparser.api.security.domain.LoginResponse;
+import com.intellibus.bigparser.api.security.domain.SignupRequest;
 import com.intellibus.bigparser.api.property.BigParserProperties;
-import com.intellibus.bigparser.api.security.impl.AuthIdManagerImpl;
-import com.intellibus.bigparser.api.security.impl.SignupServiceImpl;
+import com.intellibus.bigparser.api.security.service.impl.SignupServiceImpl;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,16 +11,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class SignupServiceTest {

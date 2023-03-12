@@ -1,8 +1,9 @@
-package com.intellibus.bigparser.api.security;
+package com.intellibus.bigparser.api.security.service;
 
-import com.intellibus.bigparser.api.domain.AuthIdToken;
+import com.intellibus.bigparser.api.security.domain.AuthIdToken;
 import com.intellibus.bigparser.api.property.BigParserProperties;
-import com.intellibus.bigparser.api.security.impl.AuthIdManagerImpl;
+import com.intellibus.bigparser.api.security.domain.LoginResponse;
+import com.intellibus.bigparser.api.security.service.impl.AuthIdManagerImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,16 @@ public class AuthIdManagerIT {
     public void validToken_tokenNotExists_newTokenCreated(){
         AuthIdToken authIdToken = authIdManager.validToken();
         assertNotNull(authIdToken);
+    }
+
+    @Test
+    public void login_success(){
+        LoginResponse loginResponse =  authIdManager.login();
+        assertNotNull(loginResponse);
+        assertNotNull(loginResponse.getSubscriptionInfo());
+        assertNotNull(loginResponse.getSubscriptionInfo().getSubscriptionType());
+        assertNotNull(loginResponse.getUserPreference());
+        assertNotNull(loginResponse.getUserPreference().getNotificationType());
     }
 
     @Test

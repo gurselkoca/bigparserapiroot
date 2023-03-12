@@ -1,8 +1,8 @@
-package com.intellibus.bigparser.api.security.impl;
+package com.intellibus.bigparser.api.security.service.impl;
 
-import com.intellibus.bigparser.api.domain.SignupRequest;
+import com.intellibus.bigparser.api.security.domain.SignupRequest;
 import com.intellibus.bigparser.api.property.BigParserProperties;
-import com.intellibus.bigparser.api.security.SignupService;
+import com.intellibus.bigparser.api.security.service.SignupService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

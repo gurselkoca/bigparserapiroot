@@ -1,10 +1,10 @@
-package com.intellibus.bigparser.api.security.impl;
+package com.intellibus.bigparser.api.security.service.impl;
 
-import com.intellibus.bigparser.api.domain.AuthIdToken;
-import com.intellibus.bigparser.api.domain.LoginRequest;
-import com.intellibus.bigparser.api.domain.LoginResponse;
+import com.intellibus.bigparser.api.security.domain.AuthIdToken;
+import com.intellibus.bigparser.api.security.domain.LoginRequest;
+import com.intellibus.bigparser.api.security.domain.LoginResponse;
 import com.intellibus.bigparser.api.property.BigParserProperties;
-import com.intellibus.bigparser.api.security.AuthIdManager;
+import com.intellibus.bigparser.api.security.service.AuthIdManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -33,12 +33,17 @@ public class AuthIdManagerImpl implements AuthIdManager {
     }
 
     private AuthIdToken newToken(){
-        LoginRequest loginRequest = new LoginRequest(bigParserProperties.getEmailId(), bigParserProperties.getPassword());
-        ResponseEntity<LoginResponse>  loginResponseEntity = restTemplate.postForEntity(bigParserProperties.getLogin(),loginRequest, LoginResponse.class);
-        LoginResponse loginResponse = loginResponseEntity.getBody();
+        LoginResponse loginResponse = login();
         AuthIdToken authIdToken = new AuthIdToken(loginResponse.getAuthId(),new Date(),bigParserProperties.getTokenInvalidSeconds());
         return authIdToken;
 
     }
 
+    @Override
+    public LoginResponse login() {
+        LoginRequest loginRequest = new LoginRequest(bigParserProperties.getEmailId(), bigParserProperties.getPassword());
+        ResponseEntity<LoginResponse> loginResponseEntity = restTemplate.postForEntity(bigParserProperties.getLogin(), loginRequest, LoginResponse.class);
+        LoginResponse loginResponse = loginResponseEntity.getBody();
+        return loginResponse;
+    }
 }
