@@ -1,7 +1,8 @@
-package com.intellibus.bigparser.api.security;
+package com.intellibus.bigparser.api.security.service;
 
-import com.intellibus.bigparser.api.domain.SignupRequest;
+
 import com.intellibus.bigparser.api.property.BigParserProperties;
+import com.intellibus.bigparser.api.security.domain.SignupRequest;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;

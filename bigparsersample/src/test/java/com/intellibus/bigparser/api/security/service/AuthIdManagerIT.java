@@ -4,10 +4,13 @@ import com.intellibus.bigparser.api.security.domain.AuthIdToken;
 import com.intellibus.bigparser.api.property.BigParserProperties;
 import com.intellibus.bigparser.api.security.domain.LoginResponse;
 import com.intellibus.bigparser.api.security.service.impl.AuthIdManagerImpl;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -44,17 +47,33 @@ public class AuthIdManagerIT {
         assertEquals(authIdToken,secondAuthIdToken);
     }
 
+//    @Test
+//    public void validToken_tokenExpired_newTokenReturned() throws InterruptedException {
+//        when(bigParserProperties.getTokenInvalidSeconds()).thenReturn(1);
+//        AuthIdToken authIdToken = authIdManager.validToken();
+//        assertNotNull(authIdToken);
+//        assertFalse(authIdToken.tokenExpired());
+//        Thread.sleep(1500);
+//
+//        assertTrue(authIdToken.tokenExpired());
+//        AuthIdToken secondAuthIdToken = authIdManager.validToken();
+//        assertNotEquals(authIdToken,secondAuthIdToken);
+//    }
+
     @Test
     public void validToken_tokenExpired_newTokenReturned() throws InterruptedException {
         when(bigParserProperties.getTokenInvalidSeconds()).thenReturn(1);
+        //logger.info("invalidation second : {}",bigParserProperties.getTokenInvalidSeconds());
+        authIdManager.clearToken();
         AuthIdToken authIdToken = authIdManager.validToken();
         assertNotNull(authIdToken);
         assertFalse(authIdToken.tokenExpired());
-        Thread.sleep(1500);
-
+        //long begin = System.currentTimeMillis();
+        Awaitility.await().atMost(10, TimeUnit.SECONDS).until(()->authIdToken.tokenExpired());
+//        long end = System.currentTimeMillis();
+//        logger.info("Wait time (ms):{}",(end-begin));
         assertTrue(authIdToken.tokenExpired());
         AuthIdToken secondAuthIdToken = authIdManager.validToken();
         assertNotEquals(authIdToken,secondAuthIdToken);
     }
-
 }

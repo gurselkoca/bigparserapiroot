@@ -46,4 +46,10 @@ public class AuthIdManagerImpl implements AuthIdManager {
         LoginResponse loginResponse = loginResponseEntity.getBody();
         return loginResponse;
     }
+
+    @Override
+    public void clearToken() {
+        currentToken = null;
+    }
+
 }

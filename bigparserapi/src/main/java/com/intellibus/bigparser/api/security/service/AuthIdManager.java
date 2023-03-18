@@ -6,4 +6,6 @@ import com.intellibus.bigparser.api.security.domain.LoginResponse;
 public interface AuthIdManager {
     AuthIdToken validToken();
     LoginResponse login();
+
+    void clearToken();
 }
